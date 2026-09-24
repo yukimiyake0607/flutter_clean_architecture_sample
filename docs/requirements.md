@@ -513,16 +513,22 @@ integration_test と golden は作らない。
 
 ## 9. 手実装の順番
 
-1. `Result`
-2. `TaskTitle` と `Task.complete()` と、そのテスト
-3. `Activity` と 2 つの Repository ポート
-4. `CompleteTaskUseCase` と `DeleteTaskUseCase` と、Fake によるテスト
-5. DTO、インメモリ Service、Repository 実装、Repository テスト
-6. `composition_root` と `go_router`（空画面）
-7. 一覧、追加、詳細
-8. 一覧の Widget test と、説明チェック
+番号順に進める。各 Issue が 1 回のマージ単位である。前の番号が main に入ってから次へ進む。Data 層はタスクと履歴で分け、画面は一覧・追加・詳細で分ける。仕様の正は本ファイルであり、Issue と矛盾する場合は本ファイルを優先して Issue を直す。
 
-ある段階のテストが通ってから次へ進む。
+| 順 | Issue | 内容 |
+|---|---|---|
+| 1 | [#1](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/1) | `Result` |
+| 2 | [#2](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/2) | `TaskTitle` と `Task.complete()` と、そのテスト |
+| 3 | [#3](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/3) | `Activity` と 2 つの Repository ポート |
+| 4 | [#4](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/4) | 完了と削除の Use Case と、Fake によるテスト |
+| 5 | [#5](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/5) | タスクの DTO、Service、Repository 実装とテスト |
+| 6 | [#6](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/6) | 履歴の DTO、Service、Repository 実装とテスト |
+| 7 | [#7](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/7) | `composition_root` と `go_router`（空画面） |
+| 8 | [#8](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/8) | 一覧 |
+| 9 | [#9](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/9) | 追加 |
+| 10 | [#10](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/10) | 詳細（完了、削除、履歴件数） |
+| 11 | [#11](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/11) | 一覧の Widget test |
+| 12 | [#12](https://github.com/yukimiyake0607/flutter_clean_architecture_sample/issues/12) | ViewModel テストと説明チェック |
 
 ---
 
