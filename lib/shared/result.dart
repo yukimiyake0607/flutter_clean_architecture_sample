@@ -7,8 +7,11 @@ sealed class Result<T> {
   factory Result.error(Exception error) = Error<T>;
 }
 
+/// 成功したときに使用するResultのサブクラス
 final class Ok<T> extends Result<T> {
   const Ok(this.value);
+  
+  // 成功したときに渡す値
   final T value;
 
   @override
