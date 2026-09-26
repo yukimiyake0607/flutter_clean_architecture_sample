@@ -18,8 +18,11 @@ final class Ok<T> extends Result<T> {
   String toString() => 'Result<$T>.ok($value)';
 }
 
+/// 失敗したときに使用するResultのサブクラス
 final class Error<T> extends Result<T> {
   const Error(this.error);
+  
+  // 失敗したときに渡す例外
   final Exception error;
 
   @override
