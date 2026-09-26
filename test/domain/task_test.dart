@@ -19,7 +19,10 @@ void main() {
     final result = task.complete();
 
     expect(result, isA<Ok<Task>>());
-    expect((result as Ok<Task>).value.isCompleted, true);
+    final completed = (result as Ok<Task>).value;
+    expect(completed.isCompleted, isTrue);
+    expect(task.isCompleted, isFalse);
+    expect(identical(task, completed), isFalse);
   });
 
   test('完了のTaskでcomplete()を呼ぶとError<TaskAlreadyCompletedException>が返ってくる', () {
