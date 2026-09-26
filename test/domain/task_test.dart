@@ -15,11 +15,11 @@ Task buildTask({required bool isCompleted}) {
 
 void main() {
   test('未完了のTaskでcomplete()を呼ぶとOk<Task>が返ってくる', () {
-    final result = buildTask(isCompleted: false);
-    final task = result.complete();
+    final task = buildTask(isCompleted: false);
+    final result = task.complete();
 
-    expect(task, isA<Ok<Task>>());
-    expect((task as Ok<Task>).value.isCompleted, true);
+    expect(result, isA<Ok<Task>>());
+    expect((result as Ok<Task>).value.isCompleted, true);
   });
 
   test('完了のTaskでcomplete()を呼ぶとError<TaskAlreadyCompletedException>が返ってくる', () {
