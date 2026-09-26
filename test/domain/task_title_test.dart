@@ -15,4 +15,11 @@ void main() {
       );
     },
   );
+
+  test('TaskTitle.parse()の中が空白込みの文字列の場合、Ok<TaskTitle>で、中のvalueがhelloである', () {
+    final result = TaskTitle.parse(' hello ');
+
+    expect(result, isA<Ok<TaskTitle>>());
+    expect((result as Ok<TaskTitle>).value.value, 'hello');
+  });
 }
