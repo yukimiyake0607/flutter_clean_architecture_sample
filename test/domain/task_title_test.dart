@@ -16,7 +16,7 @@ void main() {
     },
   );
 
-  test('TaskTitle.parse()の中が空白込みの文字列の場合、Ok<TaskTitle>で、中のvalueがhelloである', () {
+  test('前後の空白は除いた文字列になる', () {
     final result = TaskTitle.parse(' hello ');
 
     expect(result, isA<Ok<TaskTitle>>());
