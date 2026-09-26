@@ -7,6 +7,7 @@ class EmptyTaskTitleException implements Exception {}
 /// 
 /// Taskのタイトルに関するビジネスルールをここでカプセル化する。
 class TaskTitle {
+  // インスタンスを作れるのはparseだけにするため
   const TaskTitle._(this.value);
 
   final String value;
