@@ -4,7 +4,7 @@ import 'package:flutter_clean_architecture_sample/shared/result.dart';
 class EmptyTaskTitleException implements Exception {}
 
 /// TaskTitle（値オブジェクト）
-/// 
+///
 /// Taskのタイトルに関するビジネスルールをここでカプセル化する。
 class TaskTitle {
   // インスタンスを作れるのはparseだけにするため
@@ -19,4 +19,14 @@ class TaskTitle {
     }
     return Result.ok(TaskTitle._(trimmed));
   }
+  
+  // ==の効果をoverrideする
+  // operatorはそのために必要な宣言
+  @override
+  bool operator ==(Object other) {
+    return other is TaskTitle && other.value == value;
+  }
+
+  @override
+  int get hashCode => value.hashCode;
 }
