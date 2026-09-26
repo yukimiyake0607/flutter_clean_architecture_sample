@@ -14,7 +14,7 @@ Task buildTask({required bool isCompleted}) {
 }
 
 void main() {
-  test('未完了のTaskでcomplete()を呼ぶとOk<Task>が返ってくる', () {
+  test('未完了なら新しい Task が完了になり、元は未完了のまま', () {
     final task = buildTask(isCompleted: false);
     final result = task.complete();
 
