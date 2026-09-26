@@ -25,7 +25,7 @@ void main() {
     expect(identical(task, completed), isFalse);
   });
 
-  test('完了のTaskでcomplete()を呼ぶとError<TaskAlreadyCompletedException>が返ってくる', () {
+  test('完了済みのタスクはもう一度完了できない', () {
     final result = buildTask(isCompleted: true);
     final task = result.complete();
 
