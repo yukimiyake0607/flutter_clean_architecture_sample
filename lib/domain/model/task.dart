@@ -1,6 +1,7 @@
 import 'package:flutter_clean_architecture_sample/domain/model/task_title.dart';
 import 'package:flutter_clean_architecture_sample/shared/result.dart';
 
+/// TaskのisCompletedがすでにtrueの場合にResult.errorに載せる例外
 class TaskAlreadyCompletedException implements Exception {}
 
 class Task {
