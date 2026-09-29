@@ -4,8 +4,9 @@ import 'package:flutter_clean_architecture_sample/shared/result.dart';
 
 /// タスクの取得と保存を頼めるポートです。
 /// 
-/// 依存性逆転を守るため実装はInterface Adapterが、
-/// 呼び出しはApplication Business Rules（Usecase）が行います。
+/// ポートの実装はdata/が行います。
+/// 一覧・取得・追加の呼び出しはViewModel（Presentation（Interface Adapters））、
+/// 完了と削除の呼び出しはApplication Business Rules（Usecase）です。
 abstract class TaskRepository {
   Future<Result<List<Task>>> getTasks();
   Future<Result<Task>> getTask(String id);
