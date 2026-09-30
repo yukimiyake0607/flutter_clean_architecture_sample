@@ -67,6 +67,11 @@ class CompleteTaskUseCase {
   }
 }
 
+/// 完了の一連の操作が成功したときの結果です。
+///
+/// [task] は保存された完了済みのタスクです。
+/// [activityCount] は履歴を追加したあとの件数です。
+/// 失敗したときはこのクラスを作らず、`Result.error` を返します。
 class CompleteTaskOutcome {
   const CompleteTaskOutcome({required this.task, required this.activityCount});
 
