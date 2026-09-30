@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter_clean_architecture_sample/domain/logic/task_repository.dart';
 import 'package:flutter_clean_architecture_sample/domain/model/task.dart';
 import 'package:flutter_clean_architecture_sample/domain/model/task_title.dart';
