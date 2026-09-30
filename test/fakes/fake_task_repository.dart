@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter_clean_architecture_sample/domain/logic/task_repository.dart';
 import 'package:flutter_clean_architecture_sample/domain/model/task.dart';
 import 'package:flutter_clean_architecture_sample/domain/model/task_title.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_clean_architecture_sample/shared/result.dart';
 
 class FakeTaskRepository implements TaskRepository {
   int updateCount = 0;
+  int deleteCount = 0;
   bool shouldFail = false;
   bool taskComplete = false;
 
@@ -18,7 +21,11 @@ class FakeTaskRepository implements TaskRepository {
 
   @override
   Future<Result<void>> deleteTask(String id) async {
-    return Result.error(Exception('未実装'));
+    deleteCount++;
+    if (shouldFail) {
+      return Result.error(Exception('削除に失敗しました'));
+    }
+    return Result.ok(null);
   }
 
   @override
