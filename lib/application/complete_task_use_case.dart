@@ -7,7 +7,6 @@ import 'package:flutter_clean_architecture_sample/shared/result.dart';
 class CompleteTaskUseCase {
   final TaskRepository _taskRepository;
   final ActivityRepository _activityRepository;
-  late Task task;
 
   CompleteTaskUseCase({
     required TaskRepository taskRepository,
@@ -26,7 +25,7 @@ class CompleteTaskUseCase {
             final taskUpdatedTask = await _taskRepository.updateTask(value);
             switch (taskUpdatedTask) {
               case Ok(:final value):
-                task = value;
+                final task = value;
                 final activityResult = await _activityRepository.append(
                   taskId: taskId,
                   kind: ActivityKind.completed,
