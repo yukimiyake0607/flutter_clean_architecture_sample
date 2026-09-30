@@ -4,9 +4,16 @@ import 'package:flutter_clean_architecture_sample/domain/model/task_title.dart';
 import 'package:flutter_clean_architecture_sample/shared/result.dart';
 
 class FakeTaskRepository implements TaskRepository {
+  /// updateTaskが呼ばれた回数です。成功した回数ではありません。
   int updateCount = 0;
+  
+  /// deleteTaskが呼ばれた回数です。成功した回数ではありません。
   int deleteCount = 0;
+  
+  /// trueのとき、updateTaskとdeleteTaskは回数を数えた上でResult.errorを返します。
   bool shouldFail = false;
+  
+  /// trueの時、getTaskは最初から完了しているタスクを返します。
   bool taskComplete = false;
 
   @override
