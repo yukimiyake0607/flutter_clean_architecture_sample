@@ -6,6 +6,7 @@ import 'package:flutter_clean_architecture_sample/shared/result.dart';
 class FakeTaskRepository implements TaskRepository {
   int updateCount = 0;
   bool shouldFail = false;
+  bool taskComplete = false;
 
   @override
   Future<Result<Task>> createTask({
@@ -25,15 +26,14 @@ class FakeTaskRepository implements TaskRepository {
     final title = TaskTitle.parse('仕事');
     switch (title) {
       case Ok(:final value):
-        return Result.ok(
-          Task(
-            id: '1',
-            title: value,
-            note: 'MTG',
-            isCompleted: false,
-            createdAt: DateTime(2026, 1, 1),
-          ),
+        final task = Task(
+          id: id,
+          title: value,
+          note: 'MTG',
+          isCompleted: taskComplete,
+          createdAt: DateTime(2026, 1, 1),
         );
+        return Result.ok(task);
       case Error(:final error):
         return Result.error(error);
     }
@@ -47,6 +47,9 @@ class FakeTaskRepository implements TaskRepository {
   @override
   Future<Result<Task>> updateTask(Task task) async {
     updateCount++;
+    if (shouldFail) {
+      return Result.error(Exception('保存に失敗'));
+    }
     return Result.ok(task);
   }
 }
