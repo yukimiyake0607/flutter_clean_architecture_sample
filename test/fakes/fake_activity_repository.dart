@@ -4,6 +4,7 @@ import 'package:flutter_clean_architecture_sample/shared/result.dart';
 
 class FakeActivityRepository implements ActivityRepository {
   int appendCount = 0;
+  late ActivityKind activityKind;
 
   @override
   Future<Result<Activity>> append({
@@ -11,6 +12,7 @@ class FakeActivityRepository implements ActivityRepository {
     required ActivityKind kind,
   }) async {
     appendCount++;
+    activityKind = kind;
     final activity = Activity(
       id: '1',
       taskId: taskId,
