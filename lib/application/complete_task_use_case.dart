@@ -8,7 +8,7 @@ class CompleteTaskUseCase {
   final TaskRepository _taskRepository;
   final ActivityRepository _activityRepository;
 
-  CompleteTaskUseCase({
+  const CompleteTaskUseCase({
     required TaskRepository taskRepository,
     required ActivityRepository activityRepository,
   }) : _activityRepository = activityRepository,
