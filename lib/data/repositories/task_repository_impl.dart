@@ -83,7 +83,7 @@ class TaskRepositoryImpl implements TaskRepository {
       final tasksDto = await _taskApiClient.fetchTasks();
       final tasks = tasksDto.map((t) => t.toDomain()).toList();
       _cache = tasks;
-      return Result.ok(tasks);
+      return Result.ok(List<Task>.from(tasks));
     } on Exception catch (e) {
       return Result.error(e);
     }
