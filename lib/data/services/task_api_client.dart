@@ -10,6 +10,7 @@ abstract class TaskApiClient {
 
 class TaskApiClientImpl implements TaskApiClient {
   bool shouldFail = false;
+  int _nextId = 6;
 
   final List<TaskDto> _tasks = [
     TaskDto(
@@ -50,15 +51,38 @@ class TaskApiClientImpl implements TaskApiClient {
   ];
 
   @override
-  Future<TaskDto> createTask({required String title, required String body}) {
-    // TODO: implement createTask
-    throw UnimplementedError();
+  Future<TaskDto> createTask({
+    required String title,
+    required String body,
+  }) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (shouldFail) {
+      throw Exception('タスクの作成に失敗しました');
+    }
+    final taskDto = TaskDto(
+      id: '$_nextId',
+      title: title,
+      body: body,
+      completed: false,
+      createdAt: DateTime.now(),
+    );
+    _nextId++;
+    _tasks.add(taskDto);
+
+    return taskDto;
   }
 
   @override
-  Future<void> deleteTask(String id) {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
+  Future<void> deleteTask(String id) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (shouldFail) {
+      throw Exception('タスクの削除に失敗しました');
+    }
+    final index = _tasks.indexWhere((task) => task.id == id);
+    if (index == -1) {
+      throw Exception('タスクが見つかりません');
+    }
+    _tasks.removeAt(index);
   }
 
   @override
