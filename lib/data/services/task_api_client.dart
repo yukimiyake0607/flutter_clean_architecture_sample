@@ -2,7 +2,7 @@ import 'package:flutter_clean_architecture_sample/data/model/task_dto.dart';
 
 abstract class TaskApiClient {
   Future<List<TaskDto>> fetchTasks();
-  Future<TaskDto> fetchTask();
+  Future<TaskDto> fetchTask(String id);
   Future<TaskDto> createTask({required String title, required String body});
   Future<TaskDto> updateTask(TaskDto dto);
   Future<void> deleteTask(String id);
@@ -62,7 +62,7 @@ class TaskApiClientImpl implements TaskApiClient {
   }
 
   @override
-  Future<TaskDto> fetchTask() {
+  Future<TaskDto> fetchTask(String id) {
     // TODO: implement fetchTask
     throw UnimplementedError();
   }
