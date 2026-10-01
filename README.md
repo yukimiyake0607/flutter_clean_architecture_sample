@@ -16,6 +16,9 @@ Clean Architectureでは、大事なビジネスルールほど内側に置き�
 ```text
 lib/
   main.dart                          # 起動入口。層の組み立てはまだしない
+  application/                       # Application Business Rules
+    complete_task_use_case.dart      # 完了のあと履歴を 1 件残す Use Case
+    delete_task_use_case.dart        # 削除のあと履歴を 1 件残す Use Case
   domain/
     model/                           # Entities
       task_title.dart                # 空タイトルを拒否する値オブジェクト
@@ -27,7 +30,15 @@ lib/
   shared/
     result.dart                      # 層に属さない。成功か失敗かを返す共通の型
 test/
+  application/                       # Use Case のテスト。ポートは Fake に差し替える
+    complete_task_use_case_test.dart
+    delete_task_use_case_test.dart
   domain/                            # Entities のテスト
+    task_title_test.dart
+    task_test.dart
+  fakes/                             # ポートの Fake
+    fake_activity_repository.dart
+    fake_task_repository.dart
 ```
 
-これから置くフォルダは、`application/` が Application Business Rules、`presentation/` が Interface Adapters、`data/` が Frameworks & Drivers とその変換、`composition_root/` が外側で実装を組み立てる場所です。
+これから置くフォルダは、`presentation/` が Interface Adapters、`data/` が Frameworks & Drivers とその変換、`composition_root/` が外側で実装を組み立てる場所です。
