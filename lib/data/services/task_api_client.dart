@@ -86,9 +86,17 @@ class TaskApiClientImpl implements TaskApiClient {
   }
 
   @override
-  Future<TaskDto> fetchTask(String id) {
-    // TODO: implement fetchTask
-    throw UnimplementedError();
+  Future<TaskDto> fetchTask(String id) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (shouldFail) {
+      throw Exception('タスクの取得に失敗しました');
+    }
+    final index = _tasks.indexWhere((task) => task.id == id);
+    if (index == -1) {
+      throw Exception('タスクが見つかりません');
+    }
+
+    return _tasks[index];
   }
 
   @override
@@ -102,8 +110,17 @@ class TaskApiClientImpl implements TaskApiClient {
   }
 
   @override
-  Future<TaskDto> updateTask(TaskDto dto) {
-    // TODO: implement updateTask
-    throw UnimplementedError();
+  Future<TaskDto> updateTask(TaskDto dto) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (shouldFail) {
+      throw Exception('タスクの更新に失敗しました');
+    }
+    final index = _tasks.indexWhere((task) => task.id == dto.id);
+    if (index == -1) {
+      throw Exception('タスクが見つかりません');
+    }
+
+    _tasks[index] = dto;
+    return dto;
   }
 }
