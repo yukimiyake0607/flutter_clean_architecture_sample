@@ -74,11 +74,12 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<Result<List<Task>>> getTasks() async {
     if (_cache != null) {
-      Result.ok(List.from(_cache!));
+      return Result.ok(List<Task>.from(_cache!));
     }
     try {
       final tasksDto = await _taskApiClient.fetchTasks();
       final tasks = tasksDto.map((t) => t.toDomain()).toList();
+      _cache = tasks;
       return Result.ok(tasks);
     } on Exception catch (e) {
       return Result.error(e);
