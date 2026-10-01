@@ -24,11 +24,7 @@ class TaskRepositoryImpl implements TaskRepository {
       );
       final task = taskDto.toDomain();
       if (_cache != null) {
-        final index = _cache!.indexWhere((t) => t.id == task.id);
-        if (index == -1) {
-          return Result.error(Exception('タスクがありませんでした'));
-        }
-        _cache![index] = task;
+        _cache!.add(task);
       }
       return Result.ok(task);
     } on Exception catch (e) {
