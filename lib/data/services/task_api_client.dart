@@ -11,7 +11,7 @@ abstract class TaskApiClient {
 class TaskApiClientImpl implements TaskApiClient {
   bool shouldFail = false;
 
-  List<TaskDto> tasks = [
+  final List<TaskDto> _tasks = [
     TaskDto(
       id: '1',
       title: '仕事',
@@ -74,7 +74,7 @@ class TaskApiClientImpl implements TaskApiClient {
       throw Exception('タスクの取得に失敗しました');
     }
 
-    return List<TaskDto>.from(tasks);
+    return List<TaskDto>.from(_tasks);
   }
 
   @override
