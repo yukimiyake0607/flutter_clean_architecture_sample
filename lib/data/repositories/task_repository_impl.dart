@@ -63,7 +63,11 @@ class TaskRepositoryImpl implements TaskRepository {
       final tasksDto = await _taskApiClient.fetchTasks();
       final tasks = tasksDto.map((t) => t.toDomain()).toList();
       _cache = tasks;
-      final task = _cache!.firstWhere((t) => t.id == id);
+      final index = _cache!.indexWhere((t) => t.id == id);
+      if (index == -1) {
+        return Result.error(Exception('タスクが見つかりませんでした'));
+      }
+      final task = _cache![index];
       return Result.ok(task);
     } on Exception catch (e) {
       return Result.error(e);
