@@ -91,6 +91,7 @@ class TaskRepositoryImpl implements TaskRepository {
         final index = _cache!.indexWhere((t) => t.id == result.id);
         if (index == -1) {
           _cache!.add(result);
+          return Result.ok(result);
         }
         _cache![index] = result;
       }
