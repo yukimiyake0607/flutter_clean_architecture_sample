@@ -52,8 +52,11 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<Result<Task>> getTask(String id) async {
     if (_cache != null) {
-      final cacheTask = _cache!.firstWhere((t) => t.id == id);
-      return Result.ok(cacheTask);
+      final index = _cache!.indexWhere((t) => t.id == id);
+      if (index == -1) {
+        return Result.error(Exception('タスクが見つかりませんでした'));
+      }
+      return Result.ok(_cache![index]);
     }
 
     try {
