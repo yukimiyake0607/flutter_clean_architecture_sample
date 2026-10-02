@@ -36,4 +36,13 @@ void main() {
     expect(resultTask.note, '変更後');
     expect(fakeTaskApiClient.fetchCount, 1);
   });
+
+  test('例外が投げられたらResult.errorに変換できる', () async {
+    final fakeTaskApiClient = FakeTaskApiClient();
+    final repository = TaskRepositoryImpl(taskApiClient: fakeTaskApiClient);
+    fakeTaskApiClient.shouldFail = true;
+    final result = await repository.getTasks();
+
+    expect(result, isA<Error<List<Task>>>());
+  });
 }
