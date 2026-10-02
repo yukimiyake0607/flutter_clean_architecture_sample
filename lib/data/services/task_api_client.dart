@@ -1,5 +1,9 @@
 import 'package:flutter_clean_architecture_sample/data/model/task_dto.dart';
 
+/// タスク API の約束です。
+///
+/// 戻り値は [TaskDto] です。失敗は例外で知らせ、[Result] にはしません。
+/// [TaskRepositoryImpl] はこの型だけを受け取り、メモリ実装の名前は知りません。
 abstract class TaskApiClient {
   Future<List<TaskDto>> fetchTasks();
   Future<TaskDto> fetchTask(String id);
@@ -8,8 +12,14 @@ abstract class TaskApiClient {
   Future<void> deleteTask(String id);
 }
 
+/// [TaskApiClient] のメモリ実装です。
+///
+/// 約 300ms 待ってから処理します。[shouldFail] が true のあいだは、そのあと例外を投げます。
+/// [_tasks] は API の中身です。Repository の読み取りキャッシュではありません。
 class TaskApiClientImpl implements TaskApiClient {
   bool shouldFail = false;
+
+  /// 次に使う id です。シードが 1〜5 なので 6 から始まります。
   int _nextId = 6;
 
   final List<TaskDto> _tasks = [
@@ -106,6 +116,7 @@ class TaskApiClientImpl implements TaskApiClient {
       throw Exception('タスクの取得に失敗しました');
     }
 
+    // 呼び出し側がリストを変更しても、API の中身は変わらないようにコピーする。
     return List<TaskDto>.from(_tasks);
   }
 
