@@ -27,6 +27,13 @@ lib/
     logic/                           # Use Case より内側のポート
       task_repository.dart           # タスクの取得と保存を頼めるポート
       activity_repository.dart       # 履歴の追加と件数取得を頼めるポート
+  data/                              # Frameworks & Drivers とその変換。タスク側だけ
+    model/
+      task_dto.dart                  # API の形。note は body、isCompleted は completed
+    repositories/
+      task_repository_impl.dart      # TaskRepository の実装。DTO 変換と読み取りキャッシュ
+    services/
+      task_api_client.dart           # タスク API のポートと、メモリ上の実装
   shared/
     result.dart                      # 層に属さない。成功か失敗かを返す共通の型
 test/
@@ -36,9 +43,12 @@ test/
   domain/                            # Entities のテスト
     task_title_test.dart
     task_test.dart
+  data/                              # Repository 実装のテスト。ApiClient は Fake
+    task_repository_impl_test.dart
   fakes/                             # ポートの Fake
     fake_activity_repository.dart
+    fake_task_api_client.dart
     fake_task_repository.dart
 ```
 
-これから置くフォルダは、`presentation/` が Interface Adapters、`data/` が Frameworks & Drivers とその変換、`composition_root/` が外側で実装を組み立てる場所です。
+これから置くフォルダは、`presentation/` が Interface Adapters、`composition_root/` が外側で実装を組み立てる場所です。履歴の `data/` はまだありません。
