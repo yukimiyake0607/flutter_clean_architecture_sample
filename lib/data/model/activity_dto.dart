@@ -1,6 +1,6 @@
 import 'package:flutter_clean_architecture_sample/domain/model/activity.dart';
 
-/// API がやり取りするタスクの形です。
+/// API がやり取りする履歴の形です。
 ///
 /// ドメインの [Activity] とはフィールド名をずらします。
 /// [type] は [Activity.kind]です。
