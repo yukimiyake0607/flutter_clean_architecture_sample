@@ -1,5 +1,10 @@
 import 'package:flutter_clean_architecture_sample/domain/model/activity.dart';
 
+/// API がやり取りするタスクの形です。
+///
+/// ドメインの [Activity] とはフィールド名をずらします。
+/// [type] は [Activity.kind]です。
+/// このクラスは Data 層に閉じ、Use Case や ViewModel は import しません。
 class ActivityDto {
   const ActivityDto({
     required this.id,
