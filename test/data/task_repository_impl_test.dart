@@ -17,6 +17,8 @@ void main() {
     expect(fakeTaskApiClient.fetchCount, 1);
   });
 
+  // 回数が 1 のままなら、2回目は Service を呼んでいない。
+  // note が変更後なら、updateTask がキャッシュを書き換えている。
   test('タスクの更新ができる', () async {
     final fakeTaskApiClient = FakeTaskApiClient();
     final repository = TaskRepositoryImpl(taskApiClient: fakeTaskApiClient);
