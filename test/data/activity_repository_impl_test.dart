@@ -15,14 +15,14 @@ void main() {
     final initialCount = (initialCountResult as Ok<int>).value;
     expect(initialCount, 0);
 
-    final result = await repository.append(
+    final appendResult = await repository.append(
       taskId: '1',
       kind: ActivityKind.completed,
     );
     expect(fakeApiClient.lastAppendedType, 'completed');
-    expect(result, isA<Ok<Activity>>());
-    final kind = (result as Ok<Activity>).value.kind;
-    expect(kind, ActivityKind.completed);
+    expect(appendResult, isA<Ok<Activity>>());
+    final activity = (appendResult as Ok<Activity>).value.kind;
+    expect(activity, ActivityKind.completed);
     final secondCountResult = await repository.count();
     final secondResult = (secondCountResult as Ok<int>).value;
     expect(secondResult, 1);
