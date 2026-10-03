@@ -10,7 +10,7 @@ abstract class ActivityApiClient {
 }
 
 class ActivityApiClientImpl implements ActivityApiClient {
-  List<ActivityDto>? _activities;
+  final List<ActivityDto> _activities = [];
   int _nextId = 1;
 
   @override
@@ -26,13 +26,13 @@ class ActivityApiClientImpl implements ActivityApiClient {
       occurredAt: DateTime.now(),
     );
     _nextId++;
-    _activities?.add(dto);
+    _activities.add(dto);
     return dto;
   }
 
   @override
   Future<List<ActivityDto>> fetchActivities() async {
     await Future.delayed(const Duration(milliseconds: 300));
-    return List<ActivityDto>.from(_activities ?? []);
+    return List<ActivityDto>.from(_activities);
   }
 }
