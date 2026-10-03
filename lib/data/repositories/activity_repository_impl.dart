@@ -3,6 +3,11 @@ import 'package:flutter_clean_architecture_sample/domain/logic/activity_reposito
 import 'package:flutter_clean_architecture_sample/domain/model/activity.dart';
 import 'package:flutter_clean_architecture_sample/shared/result.dart';
 
+/// [ActivityRepository] の実装です。
+///
+/// [ActivityApiClient] の [ActivityDto] を [Activity] に変換し、取得結果を [_cache] に覚えます。
+/// Service の例外は [Result.error] にします。
+/// 具象の [ActivityApiClientImpl] は知らず、ポートだけを受け取ります。
 class ActivityRepositoryImpl implements ActivityRepository {
   ActivityRepositoryImpl({required ActivityApiClient activityApiClient})
     : _activityApiClient = activityApiClient;
