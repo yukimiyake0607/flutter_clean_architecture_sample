@@ -27,13 +27,16 @@ lib/
     logic/                           # Use Case より内側のポート
       task_repository.dart           # タスクの取得と保存を頼めるポート
       activity_repository.dart       # 履歴の追加と件数取得を頼めるポート
-  data/                              # Frameworks & Drivers とその変換。タスク側だけ
+  data/                              # Frameworks & Drivers とその変換。タスクと履歴は別
     model/
       task_dto.dart                  # API の形。note は body、isCompleted は completed
+      activity_dto.dart              # API の形。kind は type
     repositories/
       task_repository_impl.dart      # TaskRepository の実装。DTO 変換と読み取りキャッシュ
+      activity_repository_impl.dart  # ActivityRepository の実装。DTO 変換と読み取りキャッシュ
     services/
       task_api_client.dart           # タスク API のポートと、メモリ上の実装
+      activity_api_client.dart       # 履歴 API のポートと、空から始まるメモリ実装
   shared/
     result.dart                      # 層に属さない。成功か失敗かを返す共通の型
 test/
@@ -45,10 +48,12 @@ test/
     task_test.dart
   data/                              # Repository 実装のテスト。ApiClient は Fake
     task_repository_impl_test.dart
-  fakes/                             # ポートの Fake
-    fake_activity_repository.dart
+    activity_repository_impl_test.dart
+  fakes/                             # ポートの Fake と、ApiClient の Fake
+    fake_activity_repository.dart    # ActivityRepository の Fake。Use Case テスト用
+    fake_activity_api_client.dart    # ActivityApiClient の Fake。Repository テスト用
     fake_task_api_client.dart
     fake_task_repository.dart
 ```
 
-これから置くフォルダは、`presentation/` が Interface Adapters、`composition_root/` が外側で実装を組み立てる場所です。履歴の `data/` はまだありません。
+これから置くフォルダは、`presentation/` が Interface Adapters、`composition_root/` が外側で実装を組み立てる場所です。
