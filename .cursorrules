@@ -1,0 +1,22 @@
+# Commit message rules
+
+When generating a Git commit message (including the Source Control "Generate commit message" button), follow these rules. They apply only to commit messages, not to chat replies.
+
+- Write the message in Japanese. Never write the subject in English.
+- Use exactly one subject line. Do not add a body unless the user asks for one.
+- Format: `<type>: <日本語の説明>`
+- `type` is one of: `add`, `feat`, `fix`, `chore`, `doc`, `refactor`, `test`.
+  - `add`: 新しいファイル、クラス、機能の追加
+  - `feat`: 既存機能の拡張
+  - `fix`: 不具合の修正
+  - `chore`: ビルド、依存関係、設定などの雑務
+  - `doc`: ドキュメントやコメントの追加・修正
+  - `refactor`: 振る舞いを変えない整理
+  - `test`: テストの追加・修正
+- Keep the Japanese description short and specific. Describe what changed and why in one clause.
+- Do not end the subject with a period.
+
+Examples:
+- `add: ログイン機能を追加`
+- `fix: タスク一覧が常に null になる不具合を修正`
+- `doc: ActivityApiClient に Dart Doc を追加`
