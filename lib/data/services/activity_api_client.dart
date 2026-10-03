@@ -9,6 +9,11 @@ abstract class ActivityApiClient {
   Future<ActivityDto> append({required String taskId, required String type});
 }
 
+/// [ActivityApiClient] のメモリ実装です。
+///
+/// 約 300ms 待ってから処理します。
+/// [_activities] は API の中身です。Repository の読み取りキャッシュではありません。
+/// 履歴の初期件数は 0 なので、リストは空から始めます。
 class ActivityApiClientImpl implements ActivityApiClient {
   final List<ActivityDto> _activities = [];
   int _nextId = 1;
