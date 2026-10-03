@@ -35,8 +35,13 @@ class ActivityRepositoryImpl implements ActivityRepository {
   }
 
   @override
-  Future<Result<int>> count() {
-    // TODO: implement count
-    throw UnimplementedError();
+  Future<Result<int>> count() async {
+    if (_cache != null) {
+      return Result.ok(_cache!.length);
+    }
+
+    final activitiesDto = await _activityApiClient.fetchActivities();
+    final activities = activitiesDto.map((a) => a.toDomain()).toList();
+    return Result.ok(activities.length);
   }
 }
