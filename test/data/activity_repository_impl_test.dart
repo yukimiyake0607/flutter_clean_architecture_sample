@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../fakes/fake_activity_api_client.dart';
 
 void main() {
-  test('履歴追加に成功するとcountが1になる', () async {
+  test('履歴を追加すると type は completed になり、件数は 0 から 1 になる', () async {
     final fakeApiClient = FakeActivityApiClient();
     final repository = ActivityRepositoryImpl(activityApiClient: fakeApiClient);
     final initialCountResult = await repository.count();
