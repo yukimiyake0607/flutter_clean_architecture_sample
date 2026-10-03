@@ -4,7 +4,7 @@ import 'package:flutter_clean_architecture_sample/data/services/activity_api_cli
 class FakeActivityApiClient implements ActivityApiClient {
   bool shouldFail = false;
   int fetchCount = 0;
-  String? typeOpen;
+  String? lastAppendedType;
   final List<ActivityDto> _activities = [];
 
   @override
@@ -15,7 +15,7 @@ class FakeActivityApiClient implements ActivityApiClient {
     if (shouldFail) {
       throw Exception('履歴追加に失敗しました');
     }
-    typeOpen = type;
+    lastAppendedType = type;
     final dto = ActivityDto(
       id: '1',
       taskId: taskId,

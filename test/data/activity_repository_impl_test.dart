@@ -19,7 +19,7 @@ void main() {
       taskId: '1',
       kind: ActivityKind.completed,
     );
-    expect(fakeApiClient.typeOpen, 'completed');
+    expect(fakeApiClient.lastAppendedType, 'completed');
     expect(result, isA<Ok<Activity>>());
     final kind = (result as Ok<Activity>).value.kind;
     expect(kind, ActivityKind.completed);
