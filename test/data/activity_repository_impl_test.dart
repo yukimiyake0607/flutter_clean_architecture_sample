@@ -48,7 +48,7 @@ void main() {
     expect(fakeApiClient.fetchCount, 1);
   });
 
-  test('例外が投げられたらResult.errorに変換される', () async {
+  test('count の例外は Result.error になり、取得回数は増えない', () async {
     final fakeApiClient = FakeActivityApiClient();
     fakeApiClient.shouldFail = true;
     final repository = ActivityRepositoryImpl(activityApiClient: fakeApiClient);
