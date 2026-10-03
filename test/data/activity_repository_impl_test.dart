@@ -21,8 +21,8 @@ void main() {
     );
     expect(fakeApiClient.lastAppendedType, 'completed');
     expect(appendResult, isA<Ok<Activity>>());
-    final activity = (appendResult as Ok<Activity>).value.kind;
-    expect(activity, ActivityKind.completed);
+    final activityKind = (appendResult as Ok<Activity>).value.kind;
+    expect(activityKind, ActivityKind.completed);
     final secondCountResult = await repository.count();
     final countAfterAppend = (secondCountResult as Ok<int>).value;
     expect(countAfterAppend, 1);
