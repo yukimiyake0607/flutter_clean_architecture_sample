@@ -47,7 +47,7 @@ class ActivityRepositoryImpl implements ActivityRepository {
       }
 
       final activitiesDto = await _activityApiClient.fetchActivities();
-      final activities = activitiesDto.map((a) => a.toDomain()).toList();
+      final activities = activitiesDto.map((dto) => dto.toDomain()).toList();
       _cache = activities;
       return Result.ok(activities.length);
     } on Exception catch (e) {
