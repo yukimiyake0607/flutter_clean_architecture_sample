@@ -47,4 +47,14 @@ void main() {
     expect(secondCount, 1);
     expect(fakeApiClient.fetchCount, 1);
   });
+
+  test('例外が投げられたらResult.errorに変換される', () async {
+    final fakeApiClient = FakeActivityApiClient();
+    fakeApiClient.shouldFail = true;
+    final repository = ActivityRepositoryImpl(activityApiClient: fakeApiClient);
+
+    final countResult = await repository.count();
+    expect(countResult, isA<Error<int>>());
+    expect(fakeApiClient.fetchCount, 0);
+  });
 }
