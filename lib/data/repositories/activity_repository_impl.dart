@@ -14,9 +14,9 @@ class ActivityRepositoryImpl implements ActivityRepository {
 
   final ActivityApiClient _activityApiClient;
 
-  /// 読み取りキャッシュです。
-  ///
-  /// 未取得の時はnullでOK
+  /// 読み取りキャッシュです。未取得時はnullでOK
+  /// 
+  /// API（Serviceのこと）のリストとは別で[Activity]を覚えます。
   List<Activity>? _cache;
 
   @override
