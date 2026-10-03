@@ -24,7 +24,7 @@ void main() {
     final activity = (appendResult as Ok<Activity>).value.kind;
     expect(activity, ActivityKind.completed);
     final secondCountResult = await repository.count();
-    final secondResult = (secondCountResult as Ok<int>).value;
-    expect(secondResult, 1);
+    final countAfterAppend = (secondCountResult as Ok<int>).value;
+    expect(countAfterAppend, 1);
   });
 }
