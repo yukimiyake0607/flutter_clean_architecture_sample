@@ -28,7 +28,7 @@ void main() {
     expect(countAfterAppend, 1);
   });
 
-  test('1回目のcountでキャッシュを作り2回目でキャッシュの件数をみる', () async {
+  test('2回目の count は API を呼ばずキャッシュの件数を返す', () async {
     final fakeApiClient = FakeActivityApiClient();
     final repository = ActivityRepositoryImpl(activityApiClient: fakeApiClient);
     final initialCountResult = await repository.count();
