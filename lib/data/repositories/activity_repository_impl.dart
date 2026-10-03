@@ -1,0 +1,42 @@
+import 'package:flutter_clean_architecture_sample/data/services/activity_api_client.dart';
+import 'package:flutter_clean_architecture_sample/domain/logic/activity_repository.dart';
+import 'package:flutter_clean_architecture_sample/domain/model/activity.dart';
+import 'package:flutter_clean_architecture_sample/shared/result.dart';
+
+class ActivityRepositoryImpl implements ActivityRepository {
+  ActivityRepositoryImpl({required ActivityApiClient activityApiClient})
+    : _activityApiClient = activityApiClient;
+
+  final ActivityApiClient _activityApiClient;
+
+  /// 読み取りキャッシュです。
+  ///
+  /// 未取得の時はnullでOK
+  List<Activity>? _cache;
+
+  @override
+  Future<Result<Activity>> append({
+    required String taskId,
+    required ActivityKind kind,
+  }) async {
+    try {
+      final activityDto = await _activityApiClient.append(
+        taskId: taskId,
+        type: kind.name,
+      );
+      final activity = activityDto.toDomain();
+      if (_cache != null) {
+        _cache!.add(activity);
+      }
+      return Result.ok(activity);
+    } on Exception catch (e) {
+      return Result.error(e);
+    }
+  }
+
+  @override
+  Future<Result<int>> count() {
+    // TODO: implement count
+    throw UnimplementedError();
+  }
+}
