@@ -23,6 +23,7 @@ GoRouter createAppRouter() {
           GoRoute(
             path: 'tasks/:id',
             builder: (context, state) {
+              // URL の :id を画面へ渡す。Repository からは取らない。
               final id = state.pathParameters['id']!;
               return TaskDetailScreen(id: id);
             },
