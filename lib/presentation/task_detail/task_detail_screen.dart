@@ -15,7 +15,7 @@ class TaskDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => context.pop('/'),
+          onPressed: () => context.go('/'),
           icon: Icon(Icons.arrow_back),
         ),
         title: const Text('タスク詳細'),
