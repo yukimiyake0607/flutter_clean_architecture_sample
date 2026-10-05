@@ -3,6 +3,12 @@ import 'package:flutter_clean_architecture_sample/presentation/task_detail/task_
 import 'package:flutter_clean_architecture_sample/presentation/task_list/task_list_screen.dart';
 import 'package:go_router/go_router.dart';
 
+/// `/`、`/tasks/new`、`/tasks/:id` を空の画面へ割り当てる。
+///
+/// この関数は画面の対応表だけを返す。Provider は作らず、具象クラスの組み立ては
+/// composition_root が行う。子ルートの path は `/` で始めない。親の `/` と
+/// つながって `/tasks/new` になる。`tasks/new` は `tasks/:id` より前に置く。
+/// 逆だと `new` という文字列が id として詳細画面へ渡される。
 GoRouter createAppRouter() {
   return GoRouter(
     routes: [
