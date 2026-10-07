@@ -30,11 +30,11 @@ class TaskListState {
     }
   }
 
-  TaskListState copyWith(
+  TaskListState copyWith({
     List<Task>? tasks,
     TaskFilter? filter,
     CommandState<void>? load,
-  ) {
+  }) {
     return TaskListState(
       tasks: tasks ?? this.tasks,
       filter: filter ?? this.filter,
