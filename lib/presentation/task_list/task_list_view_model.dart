@@ -14,7 +14,7 @@ class TaskListState {
   final TaskFilter filter;
   final CommandState<void> load;
 
-  List<Task> get filteredTask {
+  List<Task> get filteredTasks {
     if (filter == TaskFilter.all) {
       return tasks;
     } else if (filter == TaskFilter.active) {
