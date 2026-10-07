@@ -16,6 +16,10 @@ Clean Architectureでは、大事なビジネスルールほど内側に置き�
 ```text
 lib/
   main.dart                          # 起動入口。層の組み立てはまだしない
+  presentation/                      # Interface Adapters
+    task_list/
+      task_list_screen.dart          # 一覧の表示と遷移。追加は /tasks/new、行は /tasks/:id
+      task_list_view_model.dart      # 取得は TaskRepository.getTasks だけ。フィルタは保持リストの加工
   application/                       # Application Business Rules
     complete_task_use_case.dart      # 完了のあと履歴を 1 件残す Use Case
     delete_task_use_case.dart        # 削除のあと履歴を 1 件残す Use Case
@@ -56,4 +60,4 @@ test/
     fake_task_repository.dart
 ```
 
-これから置くフォルダは、`presentation/` が Interface Adapters、`composition_root/` が外側で実装を組み立てる場所です。
+追加と詳細の ViewModel はまだ置かない。`composition_root/` は外側で実装を組み立てる場所です。
