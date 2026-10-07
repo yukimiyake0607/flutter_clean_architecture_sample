@@ -4,7 +4,7 @@ import 'package:flutter_clean_architecture_sample/presentation/command_state.dar
 enum TaskFilter { all, active, completed }
 
 class TaskListState {
-  TaskListState({
+  const TaskListState({
     this.filter = TaskFilter.all,
     this.load = const CommandState(),
     this.tasks = const [],
