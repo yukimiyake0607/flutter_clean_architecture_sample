@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_architecture_sample/domain/model/task_title.dart';
 import 'package:flutter_clean_architecture_sample/presentation/add_task/add_task_view_model.dart';
+import 'package:flutter_clean_architecture_sample/shared/result.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -47,6 +49,10 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
           children: [
             if (state.submit.running)
               Center(child: const CircularProgressIndicator()),
+            if (state.submit.result case Error(:final error))
+              Text(
+                error is EmptyTaskTitleException ? 'タイトルを入力して下さい' : '保存に失敗しました',
+              ),
             TextFormField(controller: titleTextController),
             TextFormField(controller: noteTextController),
             const SizedBox(height: 20),
