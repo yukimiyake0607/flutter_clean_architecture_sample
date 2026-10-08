@@ -1,13 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_architecture_sample/presentation/add_task/add_task_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 /// タスク追加画面です。
-class AddTaskScreen extends ConsumerWidget {
+class AddTaskScreen extends ConsumerStatefulWidget {
   const AddTaskScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
+  final titleTextController = TextEditingController();
+  final noteTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    titleTextController.dispose();
+    noteTextController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(addTaskViewModelProvider);
+    final viewModel = ref.read(addTaskViewModelProvider.notifier);
+
+    ref.listen(addTaskViewModelProvider, (previous, next) {
+      if (next.submit.completed) {
+        context.go('/');
+      }
+      if (next.submit.hasError) {}
+    });
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -16,7 +42,27 @@ class AddTaskScreen extends ConsumerWidget {
         ),
         title: const Text('追加画面'),
       ),
-      body: Center(child: Text('タスクを追加します')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            if (state.submit.running)
+              Center(child: const CircularProgressIndicator()),
+            TextFormField(controller: titleTextController),
+            TextFormField(controller: noteTextController),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                viewModel.submit(
+                  title: titleTextController.text,
+                  note: noteTextController.text,
+                );
+              },
+              child: Text('追加'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
