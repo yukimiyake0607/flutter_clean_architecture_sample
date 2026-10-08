@@ -31,14 +31,14 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
 
     ref.listen(addTaskViewModelProvider, (previous, next) {
       if (next.submit.completed) {
-        context.go('/');
+        context.pop();
       }
     });
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => context.go('/'),
+          onPressed: () => context.pop(),
           icon: Icon(Icons.arrow_back),
         ),
         title: const Text('追加画面'),
