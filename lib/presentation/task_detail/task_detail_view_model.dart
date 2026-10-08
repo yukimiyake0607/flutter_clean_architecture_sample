@@ -35,7 +35,7 @@ class TaskDetailState {
 }
 
 class TaskDetailViewModel extends Notifier<TaskDetailState> {
-  TaskDetailViewModel({required this.id});
+  TaskDetailViewModel(this.id);
   final String id;
 
   @override
@@ -43,3 +43,8 @@ class TaskDetailViewModel extends Notifier<TaskDetailState> {
     return const TaskDetailState();
   }
 }
+
+final taskDetailViewModelProvider = NotifierProvider.autoDispose
+    .family<TaskDetailViewModel, TaskDetailState, String>(
+      TaskDetailViewModel.new,
+    );
