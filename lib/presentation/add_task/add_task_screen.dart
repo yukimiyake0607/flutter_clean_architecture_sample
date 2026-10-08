@@ -31,7 +31,6 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
       if (next.submit.completed) {
         context.go('/');
       }
-      if (next.submit.hasError) {}
     });
 
     return Scaffold(
