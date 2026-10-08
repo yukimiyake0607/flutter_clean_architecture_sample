@@ -69,8 +69,9 @@ class TaskListScreen extends ConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.push('/tasks/new');
+        onPressed: () async {
+          await context.push('/tasks/new');
+          viewModel.load();
         },
         child: Icon(Icons.add),
       ),
