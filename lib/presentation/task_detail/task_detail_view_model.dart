@@ -1,5 +1,6 @@
 import 'package:flutter_clean_architecture_sample/domain/model/task.dart';
 import 'package:flutter_clean_architecture_sample/presentation/command_state.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TaskDetailState {
   const TaskDetailState({
@@ -30,5 +31,15 @@ class TaskDetailState {
       toggle: toggle ?? this.toggle,
       delete: delete ?? this.delete,
     );
+  }
+}
+
+class TaskDetailViewModel extends Notifier<TaskDetailState> {
+  TaskDetailViewModel({required this.id});
+  final String id;
+
+  @override
+  TaskDetailState build() {
+    return const TaskDetailState();
   }
 }
