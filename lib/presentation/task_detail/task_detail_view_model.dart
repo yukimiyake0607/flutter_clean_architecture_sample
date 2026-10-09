@@ -78,6 +78,27 @@ class TaskDetailViewModel extends Notifier<TaskDetailState> {
         state = state.copyWith(load: CommandState(result: Result.error(error)));
     }
   }
+
+  Future<void> toggle() async {
+    if (state.toggle.running) return;
+    state = state.copyWith(toggle: CommandState(running: true));
+
+    final result = await ref.read(completeTaskUseCaseProvider).call(id);
+
+    if (!ref.mounted) return;
+    switch (result) {
+      case Ok(:final value):
+        state = state.copyWith(
+          task: value.task,
+          activityCount: value.activityCount,
+          toggle: CommandState(result: Result.ok(null)),
+        );
+      case Error(:final error):
+        state = state.copyWith(
+          toggle: CommandState(result: Result.error(error)),
+        );
+    }
+  }
 }
 
 final taskDetailViewModelProvider = NotifierProvider.autoDispose
