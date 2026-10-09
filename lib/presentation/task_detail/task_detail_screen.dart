@@ -62,12 +62,7 @@ class TaskDetailScreen extends ConsumerWidget {
                           ? 'すでに完了しています'
                           : '完了に失敗しました',
                     ),
-                  if (state.delete.result case Error(:final error))
-                    Text(
-                      error is TaskAlreadyCompletedException
-                          ? 'すでに完了しています'
-                          : '削除に失敗しました',
-                    ),
+                  if (state.delete.hasError) Text('削除に失敗しました'),
                   Text(state.task?.title.value ?? 'タスク名なし'),
                   const SizedBox(height: 4),
                   Text('履歴 ${state.activityCount.toString()}件'),
