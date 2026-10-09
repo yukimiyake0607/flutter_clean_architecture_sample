@@ -60,7 +60,7 @@ class TaskDetailScreen extends ConsumerWidget {
                     Text(
                       error is TaskAlreadyCompletedException
                           ? 'すでに完了しています'
-                          : '取得に失敗しました',
+                          : '完了に失敗しました',
                     ),
                   if (state.delete.result case Error(:final error))
                     Text(
