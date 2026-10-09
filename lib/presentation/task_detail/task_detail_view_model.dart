@@ -99,6 +99,23 @@ class TaskDetailViewModel extends Notifier<TaskDetailState> {
         );
     }
   }
+
+  Future<void> delete() async {
+    if (state.delete.running) return;
+    state = state.copyWith(delete: CommandState(running: true));
+
+    final result = await ref.read(deleteTaskUseCaseProvider).call(id);
+
+    if (!ref.mounted) return;
+    switch (result) {
+      case Ok():
+        state = state.copyWith(delete: CommandState(result: Result.ok(null)));
+      case Error(:final error):
+        state = state.copyWith(
+          delete: CommandState(result: Result.error(error)),
+        );
+    }
+  }
 }
 
 final taskDetailViewModelProvider = NotifierProvider.autoDispose
