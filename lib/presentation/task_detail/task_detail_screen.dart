@@ -37,15 +37,11 @@ class TaskDetailScreen extends ConsumerWidget {
         children: [
           if (state.load.running || state.load.result == null)
             const Expanded(child: Center(child: CircularProgressIndicator())),
-          if (state.load.result case Error(:final error))
+          if (state.load.hasError)
             Center(
               child: Column(
                 children: [
-                  Text(
-                    error is TaskAlreadyCompletedException
-                        ? 'すでに完了しています'
-                        : '取得に失敗しました',
-                  ),
+                  Text('取得に失敗しました'),
                   const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () {
