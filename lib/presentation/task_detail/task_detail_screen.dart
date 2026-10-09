@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_architecture_sample/presentation/task_detail/task_detail_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,10 +13,20 @@ class TaskDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final provider = taskDetailViewModelProvider(id);
+    final state = ref.watch(provider);
+    final viewModel = ref.read(provider);
+
+    ref.listen(provider, (previous, next) {
+      if (next.delete.completed) {
+        context.pop();
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => context.go('/'),
+          onPressed: () => context.pop(),
           icon: Icon(Icons.arrow_back),
         ),
         title: const Text('タスク詳細'),
