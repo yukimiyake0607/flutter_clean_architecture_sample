@@ -58,7 +58,7 @@ class TaskDetailScreen extends ConsumerWidget {
                 children: [
                   Text(state.task?.title.value ?? 'タスク名なし'),
                   const SizedBox(height: 4),
-                  Text(state.activityCount.toString()),
+                  Text('履歴 ${state.activityCount.toString()}件'),
                   const SizedBox(height: 4),
                   ElevatedButton(
                     onPressed: () {
