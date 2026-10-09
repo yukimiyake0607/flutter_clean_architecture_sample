@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_architecture_sample/domain/model/task.dart';
 import 'package:flutter_clean_architecture_sample/presentation/task_detail/task_detail_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_clean_architecture_sample/shared/result.dart';
 
 /// タスク詳細画面です。
 ///
@@ -15,7 +17,7 @@ class TaskDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = taskDetailViewModelProvider(id);
     final state = ref.watch(provider);
-    final viewModel = ref.read(provider);
+    final viewModel = ref.read(provider.notifier);
 
     ref.listen(provider, (previous, next) {
       if (next.delete.completed) {
@@ -31,7 +33,55 @@ class TaskDetailScreen extends ConsumerWidget {
         ),
         title: const Text('タスク詳細'),
       ),
-      body: Center(child: Text(id)),
+      body: Column(
+        children: [
+          if (state.load.running || state.load.result == null)
+            const Expanded(child: Center(child: CircularProgressIndicator())),
+          if (state.load.result case Error(:final error))
+            Center(
+              child: Column(
+                children: [
+                  Text(
+                    error is TaskAlreadyCompletedException
+                        ? 'すでに完了しています'
+                        : '取得に失敗しました',
+                  ),
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      viewModel.load();
+                    },
+                    child: Text('リトライ'),
+                  ),
+                ],
+              ),
+            ),
+          if (state.load.completed)
+            Center(
+              child: Column(
+                children: [
+                  Text(state.task?.title.value ?? 'タスク名なし'),
+                  const SizedBox(height: 4),
+                  Text(state.activityCount.toString()),
+                  const SizedBox(height: 4),
+                  ElevatedButton(
+                    onPressed: () {
+                      viewModel.toggle();
+                    },
+                    child: Text('完了'),
+                  ),
+                  const SizedBox(height: 4),
+                  ElevatedButton(
+                    onPressed: () {
+                      viewModel.delete();
+                    },
+                    child: Text('削除'),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
