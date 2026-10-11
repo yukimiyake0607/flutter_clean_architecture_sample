@@ -60,7 +60,10 @@ class TaskListScreen extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final task = state.filteredTasks[index];
                   return ListTile(
-                    onTap: () => context.push('/tasks/${task.id}'),
+                    onTap: () async {
+                      await context.push('/tasks/${task.id}');
+                      viewModel.load();
+                    },
                     title: Text(task.title.value),
                   );
                 },
