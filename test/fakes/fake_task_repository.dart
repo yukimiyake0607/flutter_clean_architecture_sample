@@ -13,7 +13,7 @@ class FakeTaskRepository implements TaskRepository {
   /// getTasksが呼ばれた回数です。成功した回数ではありません。
   int getTasksCount = 0;
 
-  /// createCountが呼ばれた回数です。成功した回数ではありません。
+  /// createTaskが呼ばれた回数です。成功した回数ではありません。
   int createCount = 0;
 
   /// trueのとき、updateTaskとdeleteTaskは回数を数えた上でResult.errorを返します。
