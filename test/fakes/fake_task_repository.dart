@@ -10,6 +10,12 @@ class FakeTaskRepository implements TaskRepository {
   /// deleteTaskが呼ばれた回数です。成功した回数ではありません。
   int deleteCount = 0;
 
+  /// getTasksが呼ばれた回数です。成功した回数ではありません。
+  int getTasksCount = 0;
+
+  /// createCountが呼ばれた回数です。成功した回数ではありません。
+  int createCount = 0;
+
   /// trueのとき、updateTaskとdeleteTaskは回数を数えた上でResult.errorを返します。
   bool shouldFail = false;
 
@@ -27,6 +33,7 @@ class FakeTaskRepository implements TaskRepository {
     required TaskTitle title,
     required String note,
   }) async {
+    createCount++;
     return Result.error(Exception('未実装'));
   }
 
@@ -59,6 +66,7 @@ class FakeTaskRepository implements TaskRepository {
 
   @override
   Future<Result<List<Task>>> getTasks() async {
+    getTasksCount++;
     if (failGetTasks) {
       return Result.error(Exception('取得に失敗しました'));
     }
