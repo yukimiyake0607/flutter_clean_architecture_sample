@@ -27,6 +27,8 @@ void main() {
     await Future<void>.delayed(Duration.zero);
 
     expect(container.read(taskListViewModelProvider).load.completed, isTrue);
+    final state = container.read(taskListViewModelProvider);
+    expect(identical(state.tasks, fake.tasks), isTrue);
     expect(fake.getTasksCount, 1);
   });
 }
