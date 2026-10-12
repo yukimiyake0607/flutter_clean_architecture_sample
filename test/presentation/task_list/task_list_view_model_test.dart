@@ -31,4 +31,28 @@ void main() {
     expect(identical(state.tasks, fake.tasks), isTrue);
     expect(fake.getTasksCount, 1);
   });
+
+  test('getTasksが失敗してもtasksは空のまま', () async {
+    final fake = FakeTaskRepository();
+    final task = Task(
+      id: '1',
+      title: (TaskTitle.parse('牛乳を買う') as Ok<TaskTitle>).value,
+      note: 'memo',
+      isCompleted: false,
+      createdAt: DateTime.utc(2026, 1, 1),
+    );
+    fake.tasks = [task];
+    fake.failGetTasks = true;
+
+    final container = ProviderContainer.test(
+      overrides: [taskRepositoryProvider.overrideWithValue(fake)],
+    );
+    container.listen(taskListViewModelProvider, (_, _) {});
+    await Future<void>.delayed(Duration.zero);
+
+    final state = container.read(taskListViewModelProvider);
+    expect(state.load.hasError, isTrue);
+    expect(state.tasks, isEmpty);
+    expect(fake.getTasksCount, 1);
+  });
 }
