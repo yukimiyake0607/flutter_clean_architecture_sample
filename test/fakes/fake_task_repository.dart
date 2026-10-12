@@ -6,15 +6,21 @@ import 'package:flutter_clean_architecture_sample/shared/result.dart';
 class FakeTaskRepository implements TaskRepository {
   /// updateTaskが呼ばれた回数です。成功した回数ではありません。
   int updateCount = 0;
-  
+
   /// deleteTaskが呼ばれた回数です。成功した回数ではありません。
   int deleteCount = 0;
-  
+
   /// trueのとき、updateTaskとdeleteTaskは回数を数えた上でResult.errorを返します。
   bool shouldFail = false;
-  
+
   /// trueの時、getTaskは最初から完了しているタスクを返します。
   bool taskComplete = false;
+
+  /// true のとき、getTasks は Result.error を返します。
+  bool failGetTasks = false;
+
+  /// 成功時に getTasks が返すタスクです。中身はドメインの Task です。
+  List<Task> tasks = const [];
 
   @override
   Future<Result<Task>> createTask({
@@ -53,7 +59,10 @@ class FakeTaskRepository implements TaskRepository {
 
   @override
   Future<Result<List<Task>>> getTasks() async {
-    return Result.error(Exception('未実装'));
+    if (failGetTasks) {
+      return Result.error(Exception('取得に失敗しました'));
+    }
+    return Result.ok(tasks);
   }
 
   @override

@@ -10,8 +10,11 @@ Clean Architectureでは、大事なビジネスルールほど内側に置き�
 
 ```text
 lib/
-  main.dart                          # 起動入口。層の組み立てはまだしない
+  main.dart                          # 起動入口。ProviderScope を付ける
+  composition_root/
+    providers.dart                   # 外側で具象を組み立て、ポートと Use Case として公開する
   presentation/                      # Interface Adapters
+    command_state.dart               # 実行中と成功失敗を持つ画面状態
     task_list/
       task_list_screen.dart          # 一覧の表示と遷移。追加も詳細も、戻ると load
       task_list_view_model.dart      # 取得は TaskRepository.getTasks だけ。フィルタは保持リストの加工
@@ -44,6 +47,8 @@ lib/
       activity_api_client.dart       # 履歴 API のポートと、空から始まるメモリ実装
   shared/
     result.dart                      # 層に属さない。成功か失敗かを返す共通の型
+  routing/
+    app_router.dart                  # 一覧、追加、詳細のルート
 test/
   application/                       # Use Case のテスト。ポートは Fake に差し替える
     complete_task_use_case_test.dart
@@ -54,11 +59,14 @@ test/
   data/                              # Repository 実装のテスト。ApiClient は Fake
     task_repository_impl_test.dart
     activity_repository_impl_test.dart
+  presentation/                      # 一覧の Widget test。taskRepositoryProvider を Fake にする
+    task_list/
+      task_list_screen_test.dart     # スピナーのあとリストが出る。失敗のあとリトライできる
   fakes/                             # ポートの Fake と、ApiClient の Fake
     fake_activity_repository.dart    # ActivityRepository の Fake。Use Case テスト用
     fake_activity_api_client.dart    # ActivityApiClient の Fake。Repository テスト用
     fake_task_api_client.dart
-    fake_task_repository.dart
+    fake_task_repository.dart        # タスクのポートの Fake。取得の成功と失敗を切り替えられる
 ```
 
 詳細の ViewModel は family で、タスクの id ごとに状態を持つ。取得は Repository を直接呼び、完了と削除だけ Use Case を呼ぶ。`composition_root/` は外側で実装を組み立てる場所です。
