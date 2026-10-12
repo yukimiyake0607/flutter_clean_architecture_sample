@@ -28,4 +28,33 @@ void main() {
 
     expect(find.text('仕事'), findsOneWidget);
   });
+
+  testWidgets('タスクの取得に失敗する', (WidgetTester tester) async {
+    final fake = FakeTaskRepository();
+    fake.failGetTasks = true;
+
+    // テスト対象のウィジェットをビルドする
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [taskRepositoryProvider.overrideWithValue(fake)],
+        child: MaterialApp(home: TaskListScreen()),
+      ),
+    );
+
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    await tester.pumpAndSettle();
+
+    expect(find.text('読み込みに失敗しました'), findsOneWidget);
+    expect(find.text('リトライ'), findsOneWidget);
+
+    fake.failGetTasks = false;
+    final result = await fake.getTask('1');
+    final task = (result as Ok<Task>).value;
+    fake.tasks = [task];
+
+    await tester.tap(find.text('リトライ'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('仕事'), findsOneWidget);
+  });
 }
