@@ -19,4 +19,18 @@ void main() {
     expect(state.hasError, isTrue);
     expect(fake.createCount, 0);
   });
+
+  test('タイトルを入力するとparseが成功する', () async {
+    final fake = FakeTaskRepository();
+    final container = ProviderContainer.test(
+      overrides: [taskRepositoryProvider.overrideWithValue(fake)],
+    );
+    container.listen(addTaskViewModelProvider, (_, _) {});
+
+    await container
+        .read(addTaskViewModelProvider.notifier)
+        .submit(title: '牛乳を買う');
+
+    expect(fake.createCount, 1);
+  });
 }
