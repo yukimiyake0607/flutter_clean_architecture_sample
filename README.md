@@ -59,14 +59,20 @@ test/
   data/                              # Repository 実装のテスト。ApiClient は Fake
     task_repository_impl_test.dart
     activity_repository_impl_test.dart
-  presentation/                      # 一覧の Widget test。taskRepositoryProvider を Fake にする
+  presentation/                      # ViewModel テストと、一覧の Widget test。ポートは Fake に差し替える
     task_list/
       task_list_screen_test.dart     # スピナーのあとリストが出る。失敗のあとリトライできる
+      task_list_view_model_test.dart # load の成功と失敗。フィルタは filteredTasks だけが変わる
+    add_task/
+      add_task_view_model_test.dart  # createTask を呼ぶ。空タイトルでは呼ばない
+    task_detail/
+      task_detail_view_model_test.dart # 完了は Use Case を呼ぶ。updateTask と append は呼ばない
   fakes/                             # ポートの Fake と、ApiClient の Fake
     fake_activity_repository.dart    # ActivityRepository の Fake。Use Case テスト用
     fake_activity_api_client.dart    # ActivityApiClient の Fake。Repository テスト用
     fake_task_api_client.dart
-    fake_task_repository.dart        # タスクのポートの Fake。取得の成功と失敗を切り替えられる
+    fake_task_repository.dart        # タスクのポートの Fake。取得の成功と失敗、呼び出し回数
+    recording_complete_task_use_case.dart # 完了 Use Case の代役。call だけ記録する
 ```
 
 詳細の ViewModel は family で、タスクの id ごとに状態を持つ。取得は Repository を直接呼び、完了と削除だけ Use Case を呼ぶ。`composition_root/` は外側で実装を組み立てる場所です。
