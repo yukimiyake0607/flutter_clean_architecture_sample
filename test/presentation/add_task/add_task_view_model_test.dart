@@ -13,9 +13,7 @@ void main() {
     );
     container.listen(addTaskViewModelProvider, (_, _) {});
 
-    await container
-        .read(addTaskViewModelProvider.notifier)
-        .submit(title: ' ');
+    await container.read(addTaskViewModelProvider.notifier).submit(title: ' ');
 
     final state = container.read(addTaskViewModelProvider).submit;
     expect(state.hasError, isTrue);
